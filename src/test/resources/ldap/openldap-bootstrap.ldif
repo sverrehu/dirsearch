@@ -1,0 +1,67 @@
+version: 1
+dn: ou=People,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: People
+
+dn: cn=super,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: super
+uid: super
+sn: super
+description: Super User
+userPassword: super
+
+dn: cn=person1,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: person1
+uid: person1
+sn: person1
+description: person 1
+userPassword: person1
+
+dn: cn=person2,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: person2
+uid: person2
+sn: person2
+description: person 2
+userPassword: person2
+
+dn: cn=person3,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: person3
+uid: person3
+sn: person3
+description: person 3
+userPassword: person3
+
+dn: ou=Groups,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Groups
+
+dn: cn=persons,ou=Groups,dc=example,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: persons
+uniqueMember: cn=person2,ou=People,dc=example,dc=com
+uniqueMember: cn=person3,ou=People,dc=example,dc=com
+
+dn: cn=otherpersons,ou=Groups,dc=example,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: persons
+uniqueMember: cn=person2,ou=People,dc=example,dc=com

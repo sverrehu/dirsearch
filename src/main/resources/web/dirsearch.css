@@ -1,0 +1,67 @@
+* {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: always;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: calc(1.2vw);
+}
+
+body {
+    padding: 0;
+    background: #f4f3ef;
+    color: #000;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.5rem;
+}
+
+#content {
+    width: 100%;
+    margin: auto;
+    padding: 2em;
+    background: #fff;
+    max-width: 1000px;
+}
+
+.indented {
+    margin-left: 2em;
+}
+
+input[type="text"] {
+    font-family: inherit;
+    border: 1px solid #17bb35;
+    border-radius: 2em;
+    height: 2em;
+    padding: 1em;
+    min-width: 30em;
+    width: initial;
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+button {
+    color: #fff;
+    background: #f37021;
+    font-weight: bold;
+    display: inline-block;
+    white-space: normal;
+    text-align: center;
+    padding: .5em 1.1em;
+    margin: .3em;
+    border: 1px solid #fff;
+    border-radius: 2em;
+}
+
+a {
+    color: #000;
+}
