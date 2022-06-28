@@ -34,6 +34,7 @@ objectClass: top
 cn: person2
 uid: person2
 sn: person2
+mail: person2@example.com
 description: person 2
 userPassword: person2
 
