@@ -74,7 +74,8 @@ public final class LdapHelper {
             final SearchControls sc = new SearchControls();
             sc.setReturningAttributes(SEARCH_ATTRIBUTES);
             sc.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            return getContext().search("", "cn={0}", new String[] { query1 }, sc);
+            return getContext().search("", "(cn={0}|mail={0}|sAMAccountName={0}|userPrincipalName={0})",
+                                       new String[] { query1, query1, query1, query1 }, sc);
         }, query);
         return getAttributes(ne);
     }
