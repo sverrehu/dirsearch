@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-alpine
+FROM eclipse-temurin:17-alpine
 ARG APP_VERSION=0.1-SNAPSHOT
 ENV APP_VERSION=${APP_VERSION}
 WORKDIR /app
