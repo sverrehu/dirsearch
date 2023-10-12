@@ -3,6 +3,7 @@ package no.shhsoft.dirsearch.ldap;
 import no.shhsoft.dirsearch.DirSearch;
 import no.shhsoft.dirsearch.LdapHelper;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -30,9 +31,9 @@ public final class LdapHelperIntegrationTest {
     }
 
     @Test
-    public void shouldFoo() {
+    public void shouldFindOne() {
         final Map<String, Map<String, List<String>>> result = ldapHelper.search(LdapContainer.PERSON2_CN);
-        System.out.println(result.size());
+        Assert.assertEquals(1, result.size());
     }
 
     @Test
