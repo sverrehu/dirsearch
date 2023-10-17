@@ -1,51 +1,64 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>no.shhsoft</groupId>
     <artifactId>dirsearch</artifactId>
     <packaging>jar</packaging>
     <version>0.1.1-SNAPSHOT</version>
-    <name>DirSearch - A Directory Search Tool</name>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>DirSearch - A Directory Search Tool.</description>
+    <url>https://github.com/sverrehu/dirsearch</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/mit/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Sverre H. Huseby</name>
+            <email>shh@thathost.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/sverrehu/dirsearch.git</connection>
+        <developerConnection>scm:git:ssh://github.com:sverrehu/dirsearch.git</developerConnection>
+        <url>https://github.com/sverrehu/dirsearch/tree/main</url>
+    </scm>
 
     <properties>
+        <java.version>17</java.version>
         <undertow.version>2.3.9.Final</undertow.version>
         <junit.version>4.13.2</junit.version>
+        <shhsoft4.version>0.1.0</shhsoft4.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>shhsoft-repository</id>
-            <url>https://maven.shhsoft.no/m2/</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>shhsoft-repository</id>
-            <url>https://maven.shhsoft.no/m2/</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencies>
 
         <dependency>
             <groupId>no.shhsoft</groupId>
-            <artifactId>shhsoft3-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>shhsoft4-utils</artifactId>
+            <version>${shhsoft4.version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>no.shhsoft</groupId>
-            <artifactId>shhsoft3-json</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>shhsoft4-json</artifactId>
+            <version>${shhsoft4.version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>no.shhsoft</groupId>
-            <artifactId>shhsoft3-ldap</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>shhsoft4-ldap</artifactId>
+            <version>${shhsoft4.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -98,8 +111,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
