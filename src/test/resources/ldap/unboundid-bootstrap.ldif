@@ -1,4 +1,9 @@
 version: 1
+dn: dc=example,dc=com
+dc: example
+objectClass: domain
+objectClass: top
+
 dn: ou=People,dc=example,dc=com
 objectClass: organizationalUnit
 objectClass: top
@@ -37,6 +42,8 @@ sn: person2
 mail: person2@example.com
 description: person 2
 userPassword: person2
+memberOf: cn=persons,ou=Groups,dc=example,dc=com
+memberOf: cn=otherpersons,ou=Groups,dc=example,dc=com
 
 dn: cn=person3,ou=People,dc=example,dc=com
 objectClass: inetOrgPerson
@@ -48,6 +55,7 @@ uid: person3
 sn: person3
 description: person 3
 userPassword: person3
+memberOf: cn=persons,ou=Groups,dc=example,dc=com
 
 dn: ou=Groups,dc=example,dc=com
 objectClass: organizationalUnit
