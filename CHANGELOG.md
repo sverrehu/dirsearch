@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/sverrehu/dirsearch/compare/v0.1.3...v0.1.4) (2024-08-07)
+
+
+### Bug Fixes
+
+* **deps:** update undertow.version to v2.3.15.final ([#87](https://github.com/sverrehu/dirsearch/issues/87)) ([2c36ec1](https://github.com/sverrehu/dirsearch/commit/2c36ec104f0fd6d08f65231602869ec27b255c6f))
+
 ## [0.1.3](https://github.com/sverrehu/dirsearch/compare/v0.1.2...v0.1.3) (2024-06-27)
 
 
