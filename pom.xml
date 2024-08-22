@@ -33,7 +33,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <undertow.version>2.3.15.Final</undertow.version>
+        <undertow.version>2.3.16.Final</undertow.version>
         <junit.version>4.13.2</junit.version>
         <shhsoft4.version>0.2.0</shhsoft4.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
