@@ -25,7 +25,7 @@ jobs:
           name: dirsearch
           path: staging
       - name: Log in to the Container registry
-        uses: docker/login-action@5d8785b43a795ee002a17dbf1a2235dc1997224b
+        uses: docker/login-action@7ca345011ac4304463197fac0e56eab1bc7e6af0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
