@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/sverrehu/dirsearch/compare/v0.1.4...v0.1.5) (2025-04-24)
+
+
+### Bug Fixes
+
+* **deps:** update shhsoft4.version to v0.3.0 ([#124](https://github.com/sverrehu/dirsearch/issues/124)) ([1fc2c5c](https://github.com/sverrehu/dirsearch/commit/1fc2c5c4d7f02753762958bb57bba2e08befd475))
+
 ## [0.1.4](https://github.com/sverrehu/dirsearch/compare/v0.1.3...v0.1.4) (2024-10-24)
 
 
