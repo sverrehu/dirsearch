@@ -35,7 +35,7 @@
         <java.version>17</java.version>
         <undertow.version>2.3.18.Final</undertow.version>
         <junit.version>4.13.2</junit.version>
-        <shhsoft4.version>0.3.0</shhsoft4.version>
+        <shhsoft4.version>0.4.0</shhsoft4.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
