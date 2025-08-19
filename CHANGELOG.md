@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/sverrehu/dirsearch/compare/v0.1.7...v0.1.8) (2025-08-19)
+
+
+### Bug Fixes
+
+* build for Java 21 ([#162](https://github.com/sverrehu/dirsearch/issues/162)) ([4060415](https://github.com/sverrehu/dirsearch/commit/406041536de8689cd4da9931f06d2a40b84f7a19))
+
 ## [0.1.7](https://github.com/sverrehu/dirsearch/compare/v0.1.6...v0.1.7) (2025-08-19)
 
 
