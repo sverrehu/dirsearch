@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.7](https://github.com/sverrehu/dirsearch/compare/v0.1.6...v0.1.7) (2025-08-19)
+
+
+### Bug Fixes
+
+* release jar file ([f144724](https://github.com/sverrehu/dirsearch/commit/f144724bed4ff748f209312aa15acc24b9bf14d9))
+* release jar file ([#158](https://github.com/sverrehu/dirsearch/issues/158)) ([4f2e83d](https://github.com/sverrehu/dirsearch/commit/4f2e83dcc6eb281d13f8c15559bfd6ddcb59c8fc))
+
 ## [0.1.6](https://github.com/sverrehu/dirsearch/compare/v0.1.5...v0.1.6) (2025-06-17)
 
 
