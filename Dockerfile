@@ -1,4 +1,5 @@
-FROM eclipse-temurin:21.0.8_9-jre-alpine
+FROM gcr.io/distroless/java21-debian12:nonroot
+
 WORKDIR /app
 COPY target/*-standalone.jar ./dirsearch.jar
 
