@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/sverrehu/dirsearch/compare/v0.2.0...v0.2.1) (2025-08-20)
+
+
+### Bug Fixes
+
+* update Dockerfile CMD for distroless java ([#168](https://github.com/sverrehu/dirsearch/issues/168)) ([54e34e6](https://github.com/sverrehu/dirsearch/commit/54e34e62e43ca9ecaa2382c48ad7d325df5cc791))
+
 ## [0.2.0](https://github.com/sverrehu/dirsearch/compare/v0.1.8...v0.2.0) (2025-08-20)
 
 
