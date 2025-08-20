@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/sverrehu/dirsearch/compare/v0.1.8...v0.2.0) (2025-08-20)
+
+
+### Features
+
+* switch baseimage to Java 21 distroless ([#165](https://github.com/sverrehu/dirsearch/issues/165)) ([d840e49](https://github.com/sverrehu/dirsearch/commit/d840e49c9614fab32e9500afae81f573fe17799f))
+
 ## [0.1.8](https://github.com/sverrehu/dirsearch/compare/v0.1.7...v0.1.8) (2025-08-19)
 
 
