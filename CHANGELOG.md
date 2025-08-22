@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/sverrehu/dirsearch/compare/v0.2.1...v0.3.0) (2025-08-22)
+
+
+### Features
+
+* add support for additional CA certs via CA_CERTS_FILE environment var ([#175](https://github.com/sverrehu/dirsearch/issues/175)) ([26bd3b5](https://github.com/sverrehu/dirsearch/commit/26bd3b58e3a7ed50c7f283033a7bb333ddfdcdbf))
+
+
+### Bug Fixes
+
+* **deps:** upgrade shhsoft4 to 0.5.0 ([056cf84](https://github.com/sverrehu/dirsearch/commit/056cf84f47f9e904b1269bcee6aadb695ec121a8))
+
 ## [0.2.1](https://github.com/sverrehu/dirsearch/compare/v0.2.0...v0.2.1) (2025-08-20)
 
 
