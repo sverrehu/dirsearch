@@ -12,6 +12,7 @@ import no.shhsoft.json.impl.generator.HumanReadableJsonGeneratorImpl;
 import no.shhsoft.json.model.JsonArray;
 import no.shhsoft.json.model.JsonObject;
 import no.shhsoft.json.model.JsonString;
+import no.shhsoft.security.MultiTrustStoreX509TrustManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +49,13 @@ public final class DirSearch {
     }
 
     private void initWebServer(final Config config) {
+        final String caCertsFile = config.getCaCertsFile();
+        if (caCertsFile != null) {
+            MultiTrustStoreX509TrustManager
+                .withDefaultTrustStore()
+                .withCaCertificateFile(caCertsFile)
+                .installAsDefault();
+        }
         final ClassPathResourceManager resourceManager = new ClassPathResourceManager(ClassLoader.getSystemClassLoader(), "web");
         final ResourceHandler resourceHandler = new ResourceHandler(resourceManager, DirSearch::notFoundHandler);
 
