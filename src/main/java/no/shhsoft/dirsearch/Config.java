@@ -12,6 +12,7 @@ public final class Config {
     public static final String ENV_LDAP_BASE_DN = "LDAP_BASE_DN";
     public static final String ENV_LDAP_USER = "LDAP_USER";
     public static final String ENV_LDAP_PASSWORD = "LDAP_PASSWORD";
+    public static final String ENV_CA_CERTS_FILE = "CA_CERTS_FILE";
 
     private final Map<String, String> props;
 
@@ -46,6 +47,10 @@ public final class Config {
 
     public String getEnvLdapPassword() {
         return getRequired(ENV_LDAP_PASSWORD);
+    }
+
+    public String getCaCertsFile() {
+        return props.get(ENV_CA_CERTS_FILE);
     }
 
     private String getRequired(final String name) {
