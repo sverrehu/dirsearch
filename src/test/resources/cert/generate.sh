@@ -25,7 +25,7 @@ basicConstraints = CA:FALSE
 keyUsage = digitalSignature, keyEncipherment
 EOT
 openssl genrsa -out "$CERT.key" 2048
-openssl req -new -subj "/CN=$CERT" -key "$CERT.key" -out "$CERT.csr"
+openssl req -new -subj "/CN=127.0.0.1" -key "$CERT.key" -out "$CERT.csr"
 openssl x509 -req -CA ca.pem -CAkey ca.key -in "$CERT.csr" -out "$CERT.pem" -extensions client -extensions v3_ca -extfile ./conf.conf -days "$VALIDITY_DAYS" -CAcreateserial -passin "pass:$PASS"
 
 echo "Generating keystore"
