@@ -2,6 +2,7 @@ package no.shhsoft.dirsearch;
 
 import no.shhsoft.ldap.LdapUtils;
 import no.shhsoft.ldap.UncheckedNamingException;
+import no.shhsoft.security.MultiTrustStoreX509TrustManager;
 
 import javax.naming.InvalidNameException;
 import javax.naming.NamingEnumeration;
@@ -53,20 +54,28 @@ public final class LdapHelper {
 
     }
 
-    private LdapHelper(final String host, final int port, final String baseDn, final String userDn, final char[] password) {
-        this.ldapUrl = (port == 636 ? "ldaps" : "ldap") + "://" + host + ":" + port + "/" + baseDn;
+    private LdapHelper(final boolean isTls, final String host, final int port, final String baseDn, final String userDn, final char[] password) {
+        this.ldapUrl = (isTls ? "ldaps" : "ldap") + "://" + host + ":" + port + "/" + baseDn;
         this.baseDn = baseDn;
         this.userDn = userDn;
         this.password = password;
     }
 
     public static LdapHelper forConfig(final Config config) {
+        final boolean isTls = config.isLdapTls();
         final String host = config.getLdapHost();
         final int port = config.getLdapPort();
         final String baseDn = config.getLdapBaseDn();
         final String userDn = config.getLdapUser();
         final String password = config.getEnvLdapPassword();
-        return new LdapHelper(host, port, baseDn, userDn, password.toCharArray());
+        final String caCertsFile = config.getCaCertsFile();
+        if (caCertsFile != null) {
+            MultiTrustStoreX509TrustManager
+            .withDefaultTrustStore()
+            .withCaCertificateFile(caCertsFile)
+            .installAsDefault();
+        }
+        return new LdapHelper(isTls, host, port, baseDn, userDn, password.toCharArray());
     }
 
     public Map<String, Map<String, List<String>>> search(final String query) {

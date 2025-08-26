@@ -7,6 +7,7 @@ import java.util.Map;
  */
 public final class Config {
 
+    public static final String ENV_LDAP_TLS = "LDAP_TLS";
     public static final String ENV_LDAP_HOST = "LDAP_HOST";
     public static final String ENV_LDAP_PORT = "LDAP_PORT";
     public static final String ENV_LDAP_BASE_DN = "LDAP_BASE_DN";
@@ -26,6 +27,14 @@ public final class Config {
 
     public String getLdapHost() {
         return getRequired(ENV_LDAP_HOST);
+    }
+
+    public boolean isLdapTls() {
+        final String tlsProp = props.get(ENV_LDAP_TLS);
+        if (tlsProp != null) {
+            return "true".equals(tlsProp);
+        }
+        return getLdapPort() == 636;
     }
 
     public int getLdapPort() {
