@@ -11,7 +11,7 @@ public final class Entry {
     private final SortedSet<Entry> members = new TreeSet<>(ENTRY_COMPARATOR);
     private final SortedSet<Entry> memberOf = new TreeSet<>(ENTRY_COMPARATOR);
 
-    public Entry(final String dn) {
+    Entry(final String dn) {
         this.dn = dn;
     }
 
