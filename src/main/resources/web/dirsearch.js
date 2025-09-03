@@ -10,6 +10,7 @@
     });
 
     function presentAll() {
+        hideSpinner();
         const element = document.getElementById("content");
         shh.removeChildren(element);
         element.appendChild(createElementWithText("h1", "Active Directory Group Search"));
@@ -98,6 +99,7 @@
     }
 
     function search(query) {
+        showSpinner();
         shh.httpGet("/api/v1/search/" + encodeURIComponent(query), function (xhr) {
             if (xhr.status === 200) {
                 searchResults = JSON.parse(xhr.responseText);
@@ -107,17 +109,20 @@
                 }
                 presentResults();
             }
+            hideSpinner();
         }, function (xhr) {
             shh.log("There was an error loading the results. code=" + xhr.status + ", text=" + xhr.statusText);
         });
     }
 
     function getDn(dn) {
+        showSpinner();
         shh.httpGet("/api/v1/dn/" + encodeURIComponent(dn), function (xhr) {
             if (xhr.status === 200) {
                 searchResults = JSON.parse(xhr.responseText);
                 presentResults();
             }
+            hideSpinner();
         }, function (xhr) {
             shh.log("There was an error loading the results. code=" + xhr.status + ", text=" + xhr.statusText);
         });
@@ -133,6 +138,14 @@
         const element = document.createElement(tag);
         element.appendChild(document.createTextNode(text));
         return element;
+    }
+
+    function showSpinner() {
+        document.getElementById("spinner-overlay").style.display = "flex";
+    }
+
+    function hideSpinner() {
+        document.getElementById("spinner-overlay").style.display = "none";
     }
 
 })();
