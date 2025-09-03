@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/sverrehu/dirsearch/compare/v0.3.1...v0.4.0) (2025-09-03)
+
+
+### Features
+
+* show spinner during queries ([#181](https://github.com/sverrehu/dirsearch/issues/181)) ([4144b16](https://github.com/sverrehu/dirsearch/commit/4144b1628991432360d519ed11e9dd784e821c08))
+
 ## [0.3.1](https://github.com/sverrehu/dirsearch/compare/v0.3.0...v0.3.1) (2025-08-26)
 
 
