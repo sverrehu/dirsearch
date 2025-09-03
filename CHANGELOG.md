@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/sverrehu/dirsearch/compare/v0.3.0...v0.3.1) (2025-08-26)
+
+
+### Bug Fixes
+
+* run tests with LDAPS and new CA cert ([#177](https://github.com/sverrehu/dirsearch/issues/177)) ([11c7ea1](https://github.com/sverrehu/dirsearch/commit/11c7ea1a588115618d1c610cbf3f756191fc5ed2))
+
 ## [0.3.0](https://github.com/sverrehu/dirsearch/compare/v0.2.1...v0.3.0) (2025-08-22)
 
 
