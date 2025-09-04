@@ -18,6 +18,7 @@ public final class LdapQuerier {
     private final LdapHelper ldapHelper;
     private final TimeoutCache<String, Entry> dnCache;
     private final long dnCacheTtlMs;
+    private final boolean findIndirectMemberships;
 
     public LdapQuerier(final Config config) {
         ldapHelper = LdapHelper.forConfig(config);
@@ -25,6 +26,7 @@ public final class LdapQuerier {
         final int dnCacheTtlMin = config.getDnCacheTtlMin();
         LOG.info("Caching DN lookups for " + dnCacheTtlMin + " minutes");
         dnCacheTtlMs = dnCacheTtlMin * 60L * 1000L;
+        findIndirectMemberships = config.isFindIndirectMemberships();
     }
 
     public Map<String, Entry> search(final String query) {
@@ -34,7 +36,7 @@ public final class LdapQuerier {
             final String dn = searchResultEntry.getKey();
             final Entry entry = EntryTranslator.fromDnAndAttributes(dn, searchResultEntry.getValue());
             addToCache(dn, entry);
-            fillTransitiveMemberOf(entry);
+            fillTransitiveData(entry);
             result.put(dn, entry);
         }
         return result;
@@ -45,9 +47,16 @@ public final class LdapQuerier {
         if (entry == null) {
             entry = EntryTranslator.fromDnAndAttributes(dn, ldapHelper.get(dn));
             addToCache(dn, entry);
-            fillTransitiveMemberOf(entry);
+            fillTransitiveData(entry);
         }
         return entry;
+    }
+
+    private void fillTransitiveData(final Entry entry) {
+        if (!findIndirectMemberships) {
+            return;
+        }
+        fillTransitiveMemberOf(entry);
     }
 
     private void fillTransitiveMemberOf(final Entry entry) {
