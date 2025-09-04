@@ -61,10 +61,10 @@
             const h2 = document.createElement("h2");
             h2.appendChild(anchoredDn(key));
             resultsElement.appendChild(h2);
-            if (value.members.length !== 0) {
+            if (value.members && value.members.length !== 0) {
                 resultsElement.appendChild(createMemberDiv("Members", value.members));
             }
-            if (value.memberOf.length !== 0) {
+            if (value.memberOf && value.memberOf.length !== 0) {
                 resultsElement.appendChild(createMemberDiv("Groups", value.memberOf));
             }
         });

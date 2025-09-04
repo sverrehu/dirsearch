@@ -1,8 +1,9 @@
 package no.shhsoft.dirsearch.ldap;
 
-import no.shhsoft.dirsearch.DirSearch;
 import no.shhsoft.dirsearch.LdapQuerier;
 import no.shhsoft.dirsearch.model.Entry;
+import no.shhsoft.dirsearch.model.EntryTranslator;
+import no.shhsoft.json.impl.generator.HumanReadableJsonGeneratorImpl;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,9 +40,17 @@ public final class LdapQuerierIntegrationTest {
 
     @Test
     public void shouldPrintSomeJsonStructures() {
-        System.out.println(DirSearch.searchResultToJsonString(ldapQuerier.search(LdapServer.PERSON2_CN)));
-        System.out.println(DirSearch.searchResultToJsonString(ldapQuerier.search(LdapServer.PERSONS_GROUP_CN)));
-        System.out.println(DirSearch.entryToJsonString(ldapQuerier.get(LdapServer.PERSONS_GROUP)));
+        System.out.println(toJsonString(ldapQuerier.search(LdapServer.PERSON2_CN)));
+        System.out.println(toJsonString(ldapQuerier.search(LdapServer.PERSONS_GROUP_CN)));
+        System.out.println(toJsonString(ldapQuerier.get(LdapServer.PERSONS_GROUP)));
+    }
+
+    private static String toJsonString(final Entry entry) {
+        return new HumanReadableJsonGeneratorImpl().generate(EntryTranslator.toJson(entry));
+    }
+
+    private static String toJsonString(final Map<String, Entry> entries) {
+        return new HumanReadableJsonGeneratorImpl().generate(EntryTranslator.toJson(entries));
     }
 
 }
