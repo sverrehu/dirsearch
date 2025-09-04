@@ -13,7 +13,9 @@ public final class Config {
     public static final String ENV_LDAP_BASE_DN = "LDAP_BASE_DN";
     public static final String ENV_LDAP_USER = "LDAP_USER";
     public static final String ENV_LDAP_PASSWORD = "LDAP_PASSWORD";
+    public static final String ENV_DN_CACHE_TTL_MIN = "DN_CACHE_TTL_MIN";
     public static final String ENV_CA_CERTS_FILE = "CA_CERTS_FILE";
+    private static final int DEFAULT_DN_CACHE_TTL_MIN = 5;
 
     private final Map<String, String> props;
 
@@ -38,12 +40,7 @@ public final class Config {
     }
 
     public int getLdapPort() {
-        final String value = getRequired(ENV_LDAP_PORT);
-        try {
-            return Integer.parseInt(value);
-        } catch (final NumberFormatException e) {
-            throw new RuntimeException("Property \"" + ENV_LDAP_PORT + "\" must be an integer");
-        }
+        return toInt(getRequired(ENV_LDAP_PORT), ENV_LDAP_PORT);
     }
 
     public String getLdapBaseDn() {
@@ -60,6 +57,22 @@ public final class Config {
 
     public String getCaCertsFile() {
         return props.get(ENV_CA_CERTS_FILE);
+    }
+
+    public int getDnCacheTtlMin() {
+        final String value = props.get(ENV_DN_CACHE_TTL_MIN);
+        if (value == null) {
+            return DEFAULT_DN_CACHE_TTL_MIN;
+        }
+        return toInt(value, ENV_DN_CACHE_TTL_MIN);
+    }
+
+    private static int toInt(final String value, final String property) {
+        try {
+            return Integer.parseInt(value);
+        } catch (final NumberFormatException e) {
+            throw new RuntimeException("Property \"" + property + "\" must be an integer");
+        }
     }
 
     private String getRequired(final String name) {
