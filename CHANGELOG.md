@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/sverrehu/dirsearch/compare/v0.4.2...v0.4.3) (2025-09-04)
+
+
+### Bug Fixes
+
+* add logo icon ([#190](https://github.com/sverrehu/dirsearch/issues/190)) ([20a36de](https://github.com/sverrehu/dirsearch/commit/20a36deca5faca80efed4731f425d45210f7bf30))
+
 ## [0.4.2](https://github.com/sverrehu/dirsearch/compare/v0.4.1...v0.4.2) (2025-09-04)
 
 
