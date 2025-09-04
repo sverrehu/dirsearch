@@ -164,7 +164,7 @@ public final class LdapHelper {
         synchronized (contextLock) {
             final LdapContext ldapContext = getContext();
             final String rdn = makeRelative(dn, baseDn);
-            System.out.println("Looking up \"" + rdn + "\"");
+            LOG.info("Looking up \"" + rdn + "\"");
             try {
                 return ldapContext.getAttributes(rdn, SEARCH_ATTRIBUTES);
             } catch (final NamingException | UncheckedNamingException e) {

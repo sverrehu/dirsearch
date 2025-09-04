@@ -29,7 +29,7 @@ public final class DirSearch {
     private static final String DN_PREFIX = API_PREFIX + "dn/";
     private static final String SEARCH_PREFIX = API_PREFIX + "search/";
     private static final int HTTP_PORT = 8080;
-    private LdapHelper ldapHelper;
+    private LdapQuerier ldapQuerier;
 
     private static void notFoundHandler(final HttpServerExchange exchange) {
         exchange.setStatusCode(404);
@@ -38,13 +38,13 @@ public final class DirSearch {
     }
 
     public void runServer(final Config config) {
-        initHelper(config);
+        initQuerier(config);
         initWebServer(config);
         LOG.info("Server available at http://localhost:" + HTTP_PORT);
     }
 
-    private void initHelper(final Config config) {
-        ldapHelper = LdapHelper.forConfig(config);
+    private void initQuerier(final Config config) {
+        ldapQuerier = new LdapQuerier(config);
     }
 
     private void initWebServer(final Config config) {
@@ -79,7 +79,7 @@ public final class DirSearch {
         routingHandler.setFallbackHandler(resourceHandler);
 
         final Undertow server = Undertow.builder()
-            .addHttpListener(HTTP_PORT, "localhost")
+            .addHttpListener(HTTP_PORT, "0.0.0.0")
             .setHandler(routingHandler)
             .build();
         server.start();
@@ -91,12 +91,12 @@ public final class DirSearch {
     }
 
     private String search(final String query) {
-        final Map<String, Map<String, List<String>>> searchResult = ldapHelper.search(query);
+        final Map<String, Map<String, List<String>>> searchResult = ldapQuerier.search(query);
         return searchResultToJsonString(searchResult);
     }
 
     private String get(final String dn) {
-        final Map<String, List<String>> getResult = ldapHelper.get(dn);
+        final Map<String, List<String>> getResult = ldapQuerier.get(dn);
         final Map<String, Map<String, List<String>>> searchResult = new HashMap<>();
         searchResult.put(dn, getResult);
         return searchResultToJsonString(searchResult);
