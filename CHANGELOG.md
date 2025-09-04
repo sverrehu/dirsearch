@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/sverrehu/dirsearch/compare/v0.4.1...v0.4.2) (2025-09-04)
+
+
+### Bug Fixes
+
+* restructure to use a model instead of map of lists ([#187](https://github.com/sverrehu/dirsearch/issues/187)) ([e3fbb90](https://github.com/sverrehu/dirsearch/commit/e3fbb90c79212d0f8b064d388ac9923690b7b8c5))
+
 ## [0.4.1](https://github.com/sverrehu/dirsearch/compare/v0.4.0...v0.4.1) (2025-09-04)
 
 
