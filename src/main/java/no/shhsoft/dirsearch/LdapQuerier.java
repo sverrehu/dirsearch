@@ -57,7 +57,8 @@ public final class LdapQuerier {
             return;
         }
         fillIndirectMemberOf(entry);
-        fillIndirectMembers(entry);
+        // This next one leads to far too many queries. Commenting out for now (2025-09-04).
+        //fillIndirectMembers(entry);
     }
 
     private void fillIndirectMemberOf(final Entry entry) {
