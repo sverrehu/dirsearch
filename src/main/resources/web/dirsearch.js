@@ -68,10 +68,10 @@
                 resultsElement.appendChild(createMemberDiv("Indirect Members", value.transitiveMembers));
             }
             if (value.memberOf && value.memberOf.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Groups", value.memberOf));
+                resultsElement.appendChild(createMemberDiv("Member of", value.memberOf));
             }
             if (value.transitiveMemberOf && value.transitiveMemberOf.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Indirect Groups", value.transitiveMemberOf));
+                resultsElement.appendChild(createMemberDiv("Indirectly Member of", value.transitiveMemberOf));
             }
         });
     }
