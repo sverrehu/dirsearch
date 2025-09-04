@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/sverrehu/dirsearch/compare/v0.4.0...v0.4.1) (2025-09-04)
+
+
+### Bug Fixes
+
+* extract caching LdapQuerier ([#184](https://github.com/sverrehu/dirsearch/issues/184)) ([b81dfb2](https://github.com/sverrehu/dirsearch/commit/b81dfb208d783e6a5ccf3d9483eb8ce9cc030896))
+
 ## [0.4.0](https://github.com/sverrehu/dirsearch/compare/v0.3.1...v0.4.0) (2025-09-03)
 
 
