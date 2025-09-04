@@ -57,6 +57,19 @@ description: person 3
 userPassword: person3
 memberOf: cn=persons,ou=Groups,dc=example,dc=com
 
+dn: cn=person4,ou=People,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: person4
+uid: person4
+sn: person4
+description: person 4
+userPassword: person4
+memberOf: cn=persons,ou=Groups,dc=example,dc=com
+memberOf: cn=cyclic2,ou=Groups,dc=example,dc=com
+
 dn: ou=Groups,dc=example,dc=com
 objectClass: organizationalUnit
 objectClass: top
@@ -66,6 +79,7 @@ dn: cn=persons,ou=Groups,dc=example,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: persons
+memberOf: cn=allpersons,ou=Groups,dc=example,dc=com
 uniqueMember: cn=person2,ou=People,dc=example,dc=com
 uniqueMember: cn=person3,ou=People,dc=example,dc=com
 
@@ -73,4 +87,34 @@ dn: cn=otherpersons,ou=Groups,dc=example,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: persons
+memberOf: cn=allpersons,ou=Groups,dc=example,dc=com
 uniqueMember: cn=person2,ou=People,dc=example,dc=com
+
+dn: cn=allpersons,ou=Groups,dc=example,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: persons
+uniqueMember: cn=persons,ou=Groups,dc=example,dc=com
+uniqueMember: cn=otherpersons,ou=Groups,dc=example,dc=com
+
+dn: cn=cyclic1,ou=Groups,dc=example,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: persons
+memberOf: cn=cyclic2,ou=Groups,dc=example,dc=com
+uniqueMember: cn=cyclic3,ou=Groups,dc=example,dc=com
+
+dn: cn=cyclic2,ou=Groups,dc=example,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: persons
+memberOf: cn=cyclic3,ou=Groups,dc=example,dc=com
+uniqueMember: cn=cyclic1,ou=Groups,dc=example,dc=com
+uniqueMember: cn=person4,ou=People,dc=example,dc=com
+
+dn: cn=cyclic3,ou=Groups,dc=example,dc=com
+objectClass: groupOfUniqueNames
+objectClass: top
+cn: persons
+memberOf: cn=cyclic1,ou=Groups,dc=example,dc=com
+uniqueMember: cn=cyclic2,ou=Groups,dc=example,dc=com

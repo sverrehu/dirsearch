@@ -36,11 +36,24 @@ public final class LdapQuerierIntegrationTest {
     public void shouldFindOne() {
         final Map<String, Entry> result = ldapQuerier.search(LdapServer.PERSON2_CN);
         assertEquals(1, result.size());
+        final Entry entry = result.values().iterator().next();
+        assertEquals(2, entry.getMemberOf().size());
+        assertEquals(1, entry.getIndirectMemberOf().size());
+    }
+
+    @Test
+    public void shouldFindPersonInCyclicGroups() {
+        final Map<String, Entry> result = ldapQuerier.search(LdapServer.PERSON4_CN);
+        assertEquals(1, result.size());
+        final Entry entry = result.values().iterator().next();
+        assertEquals(2, entry.getMemberOf().size());
+        assertEquals(3, entry.getIndirectMemberOf().size());
     }
 
     @Test
     public void shouldPrintSomeJsonStructures() {
         System.out.println(toJsonString(ldapQuerier.search(LdapServer.PERSON2_CN)));
+        System.out.println(toJsonString(ldapQuerier.search(LdapServer.PERSON4_CN)));
         System.out.println(toJsonString(ldapQuerier.search(LdapServer.PERSONS_GROUP_CN)));
         System.out.println(toJsonString(ldapQuerier.get(LdapServer.PERSONS_GROUP)));
     }

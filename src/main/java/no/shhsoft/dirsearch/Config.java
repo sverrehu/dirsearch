@@ -15,7 +15,9 @@ public final class Config {
     public static final String ENV_LDAP_PASSWORD = "LDAP_PASSWORD";
     public static final String ENV_DN_CACHE_TTL_MIN = "DN_CACHE_TTL_MIN";
     public static final String ENV_CA_CERTS_FILE = "CA_CERTS_FILE";
+    public static final String ENV_FIND_INDIRECT_MEMBERSHIPS = "FIND_INDIRECT_MEMBERSHIPS";
     private static final int DEFAULT_DN_CACHE_TTL_MIN = 5;
+    private static final boolean DEFAULT_FIND_INDIRECT_MEMBERSHIPS = true;
 
     private final Map<String, String> props;
 
@@ -65,6 +67,14 @@ public final class Config {
             return DEFAULT_DN_CACHE_TTL_MIN;
         }
         return toInt(value, ENV_DN_CACHE_TTL_MIN);
+    }
+
+    public boolean isFindIndirectMemberships() {
+        final String s = props.get(ENV_FIND_INDIRECT_MEMBERSHIPS);
+        if (s == null) {
+            return DEFAULT_FIND_INDIRECT_MEMBERSHIPS;
+        }
+        return "true".equalsIgnoreCase(s);
     }
 
     private static int toInt(final String value, final String property) {
