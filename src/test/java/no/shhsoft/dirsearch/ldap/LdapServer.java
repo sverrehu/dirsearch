@@ -20,6 +20,7 @@ public final class LdapServer {
 
     public static final String PERSON1_CN = "person1";
     public static final String PERSON2_CN = "person2";
+    public static final String PERSON4_CN = "person4";
     private static final String LDAP_DOMAIN = "example.com";
     private static final String LDAP_BASE_DN = "dc=example,dc=com";
     private static final String LDAP_ADMIN_USER = "cn=admin," + LDAP_BASE_DN;

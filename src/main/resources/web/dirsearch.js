@@ -67,6 +67,9 @@
             if (value.memberOf && value.memberOf.length !== 0) {
                 resultsElement.appendChild(createMemberDiv("Groups", value.memberOf));
             }
+            if (value.transitiveMemberOf && value.transitiveMemberOf.length !== 0) {
+                resultsElement.appendChild(createMemberDiv("Indirect Groups", value.transitiveMemberOf));
+            }
         });
     }
 
