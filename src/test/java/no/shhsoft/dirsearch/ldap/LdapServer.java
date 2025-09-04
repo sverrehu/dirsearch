@@ -38,6 +38,7 @@ public final class LdapServer {
             config.setListenerConfigs(createLdapsListenerConfig());
             ldap = new InMemoryDirectoryServer(config);
             ldap.importFromLDIF(true, resourceToFile("/ldap/unboundid-bootstrap.ldif"));
+            //ldap.exportToLDIF("/tmp/ldap.ldif", true, true);
             ldap.startListening();
         } catch (final LDAPException e) {
             throw new RuntimeException(e);

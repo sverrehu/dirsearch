@@ -102,14 +102,14 @@ objectClass: groupOfUniqueNames
 objectClass: top
 cn: persons
 memberOf: cn=cyclic2,ou=Groups,dc=example,dc=com
-uniqueMember: cn=cyclic3,ou=People,dc=example,dc=com
+uniqueMember: cn=cyclic3,ou=Groups,dc=example,dc=com
 
 dn: cn=cyclic2,ou=Groups,dc=example,dc=com
 objectClass: groupOfUniqueNames
 objectClass: top
 cn: persons
 memberOf: cn=cyclic3,ou=Groups,dc=example,dc=com
-uniqueMember: cn=cyclic1,ou=People,dc=example,dc=com
+uniqueMember: cn=cyclic1,ou=Groups,dc=example,dc=com
 uniqueMember: cn=person4,ou=People,dc=example,dc=com
 
 dn: cn=cyclic3,ou=Groups,dc=example,dc=com
@@ -117,4 +117,4 @@ objectClass: groupOfUniqueNames
 objectClass: top
 cn: persons
 memberOf: cn=cyclic1,ou=Groups,dc=example,dc=com
-uniqueMember: cn=cyclic2,ou=People,dc=example,dc=com
+uniqueMember: cn=cyclic2,ou=Groups,dc=example,dc=com

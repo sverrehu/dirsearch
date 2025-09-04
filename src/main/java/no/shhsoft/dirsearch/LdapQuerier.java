@@ -57,6 +57,7 @@ public final class LdapQuerier {
             return;
         }
         fillIndirectMemberOf(entry);
+        fillIndirectMembers(entry);
     }
 
     private void fillIndirectMemberOf(final Entry entry) {
@@ -75,6 +76,25 @@ public final class LdapQuerier {
             final Entry groupEntry = get(memberOf);
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getMemberOf(), entry.getMemberOf()));
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getIndirectMemberOf(), entry.getMemberOf()));
+        }
+    }
+
+    private void fillIndirectMembers(final Entry entry) {
+        final Set<String> dnsSeen = new HashSet<>();
+        dnsSeen.add(entry.getDn());
+        for (final String member : entry.getMembers()) {
+            if (entry.getIndirectMembers().contains(member)) {
+                LOG.warning("Cyclic membership detected (checkpoint 3)");
+                continue;
+            }
+            if (dnsSeen.contains(member)) {
+                LOG.warning("Cyclic membership detected (checkpoint 4)");
+                continue;
+            }
+            dnsSeen.add(member);
+            final Entry memberEntry = get(member);
+            entry.addIndirectMembers(createSetExcept(memberEntry.getMembers(), entry.getMembers()));
+            entry.addIndirectMembers(createSetExcept(memberEntry.getIndirectMembers(), entry.getMembers()));
         }
     }
 
