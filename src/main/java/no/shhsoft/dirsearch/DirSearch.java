@@ -8,13 +8,13 @@ import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.server.handlers.resource.ResourceHandler;
 import io.undertow.util.Headers;
 import io.undertow.util.Methods;
-import no.shhsoft.json.impl.generator.HumanReadableJsonGeneratorImpl;
-import no.shhsoft.json.model.JsonArray;
+import no.shhsoft.dirsearch.model.Entry;
+import no.shhsoft.dirsearch.model.EntryTranslator;
+import no.shhsoft.json.impl.generator.JsonGeneratorImpl;
 import no.shhsoft.json.model.JsonObject;
 import no.shhsoft.json.model.JsonString;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,46 +91,21 @@ public final class DirSearch {
     }
 
     private String search(final String query) {
-        final Map<String, Map<String, List<String>>> searchResult = ldapQuerier.search(query);
+        final Map<String, Entry> searchResult = ldapQuerier.search(query);
         return searchResultToJsonString(searchResult);
     }
 
     private String get(final String dn) {
-        final Map<String, List<String>> getResult = ldapQuerier.get(dn);
-        final Map<String, Map<String, List<String>>> searchResult = new HashMap<>();
-        searchResult.put(dn, getResult);
+        final Entry entry = ldapQuerier.get(dn);
+        final Map<String, Entry> searchResult = new HashMap<>();
+        searchResult.put(dn, entry);
         return searchResultToJsonString(searchResult);
     }
 
-    public static String searchResultToJsonString(final Map<String, Map<String, List<String>>> searchResult) {
+    public static String searchResultToJsonString(final Map<String, Entry> searchResult) {
         final JsonObject json = new JsonObject();
-        json.put("objects", searchResultToJson(searchResult));
+        json.put("objects", EntryTranslator.toJson(searchResult));
         return jsonToString(json);
-    }
-
-    public static JsonObject searchResultToJson(final Map<String, Map<String, List<String>>> searchResult) {
-        final JsonObject objects = new JsonObject();
-        for (final Map.Entry<String, Map<String, List<String>>> objectEntry : searchResult.entrySet()) {
-            final JsonObject attributes = attributesToJson(objectEntry.getValue());
-            objects.put(objectEntry.getKey(), attributes);
-        }
-        return objects;
-    }
-
-    public static String attributesToJsonString(final Map<String, List<String>> attributes) {
-        return jsonToString(attributesToJson(attributes));
-    }
-
-    public static JsonObject attributesToJson(final Map<String, List<String>> attributes) {
-        final JsonObject attributesObject = new JsonObject();
-        for (final Map.Entry<String, List<String>> attributeEntry : attributes.entrySet()) {
-            final JsonArray attributeValues = new JsonArray();
-            for (final String attributeValue : attributeEntry.getValue()) {
-                attributeValues.add(JsonString.get(attributeValue));
-            }
-            attributesObject.put(attributeEntry.getKey(), attributeValues);
-        }
-        return attributesObject;
     }
 
     private static String errorMessageToJsonString(final String message) {
@@ -140,7 +115,7 @@ public final class DirSearch {
     }
 
     private static String jsonToString(final JsonObject jsonObject) {
-        return new HumanReadableJsonGeneratorImpl().generate(jsonObject);
+        return new JsonGeneratorImpl().generate(jsonObject);
     }
 
     public static void main(final String[] args) {
