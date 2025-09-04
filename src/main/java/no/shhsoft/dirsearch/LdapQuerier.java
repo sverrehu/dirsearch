@@ -36,7 +36,7 @@ public final class LdapQuerier {
             final String dn = searchResultEntry.getKey();
             final Entry entry = EntryTranslator.fromDnAndAttributes(dn, searchResultEntry.getValue());
             addToCache(dn, entry);
-            fillTransitiveData(entry);
+            fillIndirectMembershipData(entry);
             result.put(dn, entry);
         }
         return result;
@@ -47,23 +47,23 @@ public final class LdapQuerier {
         if (entry == null) {
             entry = EntryTranslator.fromDnAndAttributes(dn, ldapHelper.get(dn));
             addToCache(dn, entry);
-            fillTransitiveData(entry);
+            fillIndirectMembershipData(entry);
         }
         return entry;
     }
 
-    private void fillTransitiveData(final Entry entry) {
+    private void fillIndirectMembershipData(final Entry entry) {
         if (!findIndirectMemberships) {
             return;
         }
-        fillTransitiveMemberOf(entry);
+        fillIndirectMemberOf(entry);
     }
 
-    private void fillTransitiveMemberOf(final Entry entry) {
+    private void fillIndirectMemberOf(final Entry entry) {
         final Set<String> dnsSeen = new HashSet<>();
         dnsSeen.add(entry.getDn());
         for (final String memberOf : entry.getMemberOf()) {
-            if (entry.getTransitiveMemberOf().contains(memberOf)) {
+            if (entry.getIndirectMemberOf().contains(memberOf)) {
                 LOG.warning("Cyclic membership detected (checkpoint 1)");
                 continue;
             }
@@ -73,8 +73,8 @@ public final class LdapQuerier {
             }
             dnsSeen.add(memberOf);
             final Entry groupEntry = get(memberOf);
-            entry.addTransitiveMemberOf(createSetExcept(groupEntry.getMemberOf(), entry.getMemberOf()));
-            entry.addTransitiveMemberOf(createSetExcept(groupEntry.getTransitiveMemberOf(), entry.getMemberOf()));
+            entry.addIndirectMemberOf(createSetExcept(groupEntry.getMemberOf(), entry.getMemberOf()));
+            entry.addIndirectMemberOf(createSetExcept(groupEntry.getIndirectMemberOf(), entry.getMemberOf()));
         }
     }
 

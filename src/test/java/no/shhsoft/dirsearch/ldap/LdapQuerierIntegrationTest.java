@@ -38,7 +38,7 @@ public final class LdapQuerierIntegrationTest {
         assertEquals(1, result.size());
         final Entry entry = result.values().iterator().next();
         assertEquals(2, entry.getMemberOf().size());
-        assertEquals(1, entry.getTransitiveMemberOf().size());
+        assertEquals(1, entry.getIndirectMemberOf().size());
     }
 
     @Test
@@ -47,7 +47,7 @@ public final class LdapQuerierIntegrationTest {
         assertEquals(1, result.size());
         final Entry entry = result.values().iterator().next();
         assertEquals(2, entry.getMemberOf().size());
-        assertEquals(3, entry.getTransitiveMemberOf().size());
+        assertEquals(3, entry.getIndirectMemberOf().size());
     }
 
     @Test

@@ -43,11 +43,11 @@ public final class EntryTranslator {
         if (!entry.getMembers().isEmpty()) {
             object.put("members", toJsonArray(entry.getMembers()));
         }
-        if (!entry.getTransitiveMembers().isEmpty()) {
-            object.put("transitiveMembers", toJsonArray(entry.getTransitiveMembers()));
+        if (!entry.getIndirectMembers().isEmpty()) {
+            object.put("indirectMembers", toJsonArray(entry.getIndirectMembers()));
         }
-        if (!entry.getTransitiveMemberOf().isEmpty()) {
-            object.put("transitiveMemberOf", toJsonArray(entry.getTransitiveMemberOf()));
+        if (!entry.getIndirectMemberOf().isEmpty()) {
+            object.put("indirectMemberOf", toJsonArray(entry.getIndirectMemberOf()));
         }
         return object;
     }

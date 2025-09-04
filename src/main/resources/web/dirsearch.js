@@ -64,14 +64,14 @@
             if (value.members && value.members.length !== 0) {
                 resultsElement.appendChild(createMemberDiv("Members", value.members));
             }
-            if (value.transitiveMembers && value.transitiveMembers.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Indirect Members", value.transitiveMembers));
+            if (value.indirectMembers && value.indirectMembers.length !== 0) {
+                resultsElement.appendChild(createMemberDiv("Indirect Members", value.indirectMembers));
             }
             if (value.memberOf && value.memberOf.length !== 0) {
                 resultsElement.appendChild(createMemberDiv("Member of", value.memberOf));
             }
-            if (value.transitiveMemberOf && value.transitiveMemberOf.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Indirectly Member of", value.transitiveMemberOf));
+            if (value.indirectMemberOf && value.indirectMemberOf.length !== 0) {
+                resultsElement.appendChild(createMemberDiv("Indirectly Member of", value.indirectMemberOf));
             }
         });
     }
