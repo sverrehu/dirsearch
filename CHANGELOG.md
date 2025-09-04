@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/sverrehu/dirsearch/compare/v0.4.3...v0.5.0) (2025-09-04)
+
+
+### Features
+
+* show indirect memberOf ([#193](https://github.com/sverrehu/dirsearch/issues/193)) ([05137f2](https://github.com/sverrehu/dirsearch/commit/05137f23cc41057fc89403122c003ad5c4fac886))
+
 ## [0.4.3](https://github.com/sverrehu/dirsearch/compare/v0.4.2...v0.4.3) (2025-09-04)
 
 
