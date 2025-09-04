@@ -12,6 +12,7 @@ public final class Entry {
     private final String dn;
     private final Set<String> members = new TreeSet<>(DN_COMPARATOR);
     private final Set<String> memberOf = new TreeSet<>(DN_COMPARATOR);
+    private final Set<String> transitiveMembers = new TreeSet<>(DN_COMPARATOR);
     private final Set<String> transitiveMemberOf = new TreeSet<>(DN_COMPARATOR);
 
     Entry(final String dn) {
@@ -30,6 +31,10 @@ public final class Entry {
         transitiveMemberOf.addAll(dns);
     }
 
+    public void addTransitiveMembers(final Collection<String> dns) {
+        transitiveMembers.addAll(dns);
+    }
+
     public String getDn() {
         return dn;
     }
@@ -44,6 +49,10 @@ public final class Entry {
 
     public Collection<String> getTransitiveMemberOf() {
         return transitiveMemberOf;
+    }
+
+    public Collection<String> getTransitiveMembers() {
+        return transitiveMembers;
     }
 
 }
