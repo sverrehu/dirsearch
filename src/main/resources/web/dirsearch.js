@@ -61,22 +61,11 @@
             const h2 = document.createElement("h2");
             h2.appendChild(anchoredDn(key));
             resultsElement.appendChild(h2);
-            let members = [];
-            let memberOf = [];
-            if (value.member) {
-                members = members.concat(value.member);
+            if (value.members.length !== 0) {
+                resultsElement.appendChild(createMemberDiv("Members", value.members));
             }
-            if (value.uniqueMember) {
-                members = members.concat(value.uniqueMember);
-            }
-            if (value.memberOf) {
-                memberOf = memberOf.concat(value.memberOf);
-            }
-            if (members.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Members", members));
-            }
-            if (memberOf.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Groups", memberOf));
+            if (value.memberOf.length !== 0) {
+                resultsElement.appendChild(createMemberDiv("Groups", value.memberOf));
             }
         });
     }
