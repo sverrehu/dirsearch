@@ -1,12 +1,12 @@
 package no.shhsoft.dirsearch.ldap;
 
 import no.shhsoft.dirsearch.DirSearch;
-import no.shhsoft.dirsearch.LdapHelper;
+import no.shhsoft.dirsearch.LdapQuerier;
+import no.shhsoft.dirsearch.model.Entry;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,16 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author <a href="mailto:shh@thathost.com">Sverre H. Huseby</a>
  */
-public final class LdapHelperIntegrationTest {
+public final class LdapQuerierIntegrationTest {
 
     private static LdapServer ldap;
-    private static LdapHelper ldapHelper;
+    private static LdapQuerier ldapQuerier;
 
     @BeforeAll
     public static void beforeAll() {
         ldap = new LdapServer();
         ldap.start();
-        ldapHelper = LdapHelper.forConfig(ldap.getConfig());
+        ldapQuerier = new LdapQuerier(ldap.getConfig());
     }
 
     @AfterAll
@@ -33,15 +33,15 @@ public final class LdapHelperIntegrationTest {
 
     @Test
     public void shouldFindOne() {
-        final Map<String, Map<String, List<String>>> result = ldapHelper.search(LdapServer.PERSON2_CN);
+        final Map<String, Entry> result = ldapQuerier.search(LdapServer.PERSON2_CN);
         assertEquals(1, result.size());
     }
 
     @Test
-    public void shouldBar() {
-        System.out.println(DirSearch.searchResultToJsonString(ldapHelper.search(LdapServer.PERSON2_CN)));
-        System.out.println(DirSearch.searchResultToJsonString(ldapHelper.search(LdapServer.PERSONS_GROUP_CN)));
-        System.out.println(DirSearch.attributesToJsonString(ldapHelper.get(LdapServer.PERSONS_GROUP)));
+    public void shouldPrintSomeJsonStructures() {
+        System.out.println(DirSearch.searchResultToJsonString(ldapQuerier.search(LdapServer.PERSON2_CN)));
+        System.out.println(DirSearch.searchResultToJsonString(ldapQuerier.search(LdapServer.PERSONS_GROUP_CN)));
+        System.out.println(DirSearch.entryToJsonString(ldapQuerier.get(LdapServer.PERSONS_GROUP)));
     }
 
 }

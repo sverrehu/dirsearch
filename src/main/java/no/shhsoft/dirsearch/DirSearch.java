@@ -8,6 +8,8 @@ import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.server.handlers.resource.ResourceHandler;
 import io.undertow.util.Headers;
 import io.undertow.util.Methods;
+import no.shhsoft.dirsearch.model.Entry;
+import no.shhsoft.dirsearch.model.EntryTranslator;
 import no.shhsoft.json.impl.generator.HumanReadableJsonGeneratorImpl;
 import no.shhsoft.json.model.JsonArray;
 import no.shhsoft.json.model.JsonObject;
@@ -91,34 +93,29 @@ public final class DirSearch {
     }
 
     private String search(final String query) {
-        final Map<String, Map<String, List<String>>> searchResult = ldapQuerier.search(query);
+        final Map<String, Entry> searchResult = ldapQuerier.search(query);
         return searchResultToJsonString(searchResult);
     }
 
     private String get(final String dn) {
-        final Map<String, List<String>> getResult = ldapQuerier.get(dn);
-        final Map<String, Map<String, List<String>>> searchResult = new HashMap<>();
-        searchResult.put(dn, getResult);
+        final Entry entry = ldapQuerier.get(dn);
+        final Map<String, Entry> searchResult = new HashMap<>();
+        searchResult.put(dn, entry);
         return searchResultToJsonString(searchResult);
     }
 
-    public static String searchResultToJsonString(final Map<String, Map<String, List<String>>> searchResult) {
+    public static String searchResultToJsonString(final Map<String, Entry> searchResult) {
         final JsonObject json = new JsonObject();
         json.put("objects", searchResultToJson(searchResult));
         return jsonToString(json);
     }
 
-    public static JsonObject searchResultToJson(final Map<String, Map<String, List<String>>> searchResult) {
-        final JsonObject objects = new JsonObject();
-        for (final Map.Entry<String, Map<String, List<String>>> objectEntry : searchResult.entrySet()) {
-            final JsonObject attributes = attributesToJson(objectEntry.getValue());
-            objects.put(objectEntry.getKey(), attributes);
-        }
-        return objects;
+    public static JsonObject searchResultToJson(final Map<String, Entry> searchResult) {
+        return EntryTranslator.toJson(searchResult);
     }
 
-    public static String attributesToJsonString(final Map<String, List<String>> attributes) {
-        return jsonToString(attributesToJson(attributes));
+    public static String entryToJsonString(final Entry entry) {
+        return jsonToString(EntryTranslator.toJson(entry));
     }
 
     public static JsonObject attributesToJson(final Map<String, List<String>> attributes) {
