@@ -43,11 +43,16 @@ public final class LdapQuerier {
     }
 
     public Entry get(final String dn) {
+        final Entry entry = getFromCacheOrServer(dn);
+        fillIndirectMembershipData(entry);
+        return entry;
+    }
+
+    private Entry getFromCacheOrServer(final String dn) {
         Entry entry = dnCache.get(dn);
         if (entry == null) {
             entry = EntryTranslator.fromDnAndAttributes(dn, ldapHelper.get(dn));
             addToCache(dn, entry);
-            fillIndirectMembershipData(entry);
         }
         return entry;
     }
@@ -57,11 +62,14 @@ public final class LdapQuerier {
             return;
         }
         fillIndirectMemberOf(entry);
-        // This next one leads to far too many queries. Commenting out for now (2025-09-04).
-        //fillIndirectMembers(entry);
+        fillIndirectMembers(entry);
     }
 
     private void fillIndirectMemberOf(final Entry entry) {
+        if (entry.isIndirectMembersOfFound()) {
+            return;
+        }
+        entry.setIndirectMembersOfFound(true);
         final Set<String> dnsSeen = new HashSet<>();
         dnsSeen.add(entry.getDn());
         for (final String memberOf : entry.getMemberOf()) {
@@ -74,13 +82,18 @@ public final class LdapQuerier {
                 continue;
             }
             dnsSeen.add(memberOf);
-            final Entry groupEntry = get(memberOf);
+            final Entry groupEntry = getFromCacheOrServer(memberOf);
+            fillIndirectMembershipData(groupEntry);
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getMemberOf(), entry.getMemberOf()));
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getIndirectMemberOf(), entry.getMemberOf()));
         }
     }
 
     private void fillIndirectMembers(final Entry entry) {
+        if (entry.isIndirectMembersFound()) {
+            return;
+        }
+        entry.setIndirectMembersFound(true);
         final Set<String> dnsSeen = new HashSet<>();
         dnsSeen.add(entry.getDn());
         for (final String member : entry.getMembers()) {
@@ -93,7 +106,8 @@ public final class LdapQuerier {
                 continue;
             }
             dnsSeen.add(member);
-            final Entry memberEntry = get(member);
+            final Entry memberEntry = getFromCacheOrServer(member);
+            fillIndirectMembershipData(memberEntry);
             entry.addIndirectMembers(createSetExcept(memberEntry.getMembers(), entry.getMembers()));
             entry.addIndirectMembers(createSetExcept(memberEntry.getIndirectMembers(), entry.getMembers()));
         }
