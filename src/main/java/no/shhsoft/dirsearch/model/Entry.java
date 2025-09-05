@@ -13,6 +13,8 @@ public final class Entry {
     private final Set<String> memberOf = new TreeSet<>(DN_COMPARATOR);
     private final Set<String> indirectMembers = new TreeSet<>(DN_COMPARATOR);
     private final Set<String> indirectMemberOf = new TreeSet<>(DN_COMPARATOR);
+    private boolean indirectMembersFound = false;
+    private boolean indirectMembersOfFound = false;
 
     Entry(final String dn) {
         this.dn = dn;
@@ -52,6 +54,21 @@ public final class Entry {
 
     public Collection<String> getIndirectMembers() {
         return indirectMembers;
+    }
+
+    public boolean isIndirectMembersFound() {
+        return indirectMembersFound;
+    }
+    public boolean isIndirectMembersOfFound() {
+        return indirectMembersOfFound;
+    }
+
+    public void setIndirectMembersFound(final boolean indirectMembersFound) {
+        this.indirectMembersFound = indirectMembersFound;
+    }
+
+    public void setIndirectMembersOfFound(final boolean indirectMembersOfFound) {
+        this.indirectMembersOfFound = indirectMembersOfFound;
     }
 
 }
