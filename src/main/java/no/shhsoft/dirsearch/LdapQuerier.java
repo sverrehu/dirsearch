@@ -70,18 +70,7 @@ public final class LdapQuerier {
             return;
         }
         entry.setIndirectMembersOfFound(true);
-        final Set<String> dnsSeen = new HashSet<>();
-        dnsSeen.add(entry.getDn());
         for (final String memberOf : entry.getMemberOf()) {
-            if (entry.getIndirectMemberOf().contains(memberOf)) {
-                LOG.warning("Cyclic membership detected (checkpoint 1)");
-                continue;
-            }
-            if (dnsSeen.contains(memberOf)) {
-                LOG.warning("Cyclic membership detected (checkpoint 2)");
-                continue;
-            }
-            dnsSeen.add(memberOf);
             final Entry groupEntry = getFromCacheOrServer(memberOf);
             fillIndirectMembershipData(groupEntry);
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getMemberOf(), entry.getMemberOf()));
@@ -94,18 +83,7 @@ public final class LdapQuerier {
             return;
         }
         entry.setIndirectMembersFound(true);
-        final Set<String> dnsSeen = new HashSet<>();
-        dnsSeen.add(entry.getDn());
         for (final String member : entry.getMembers()) {
-            if (entry.getIndirectMembers().contains(member)) {
-                LOG.warning("Cyclic membership detected (checkpoint 3)");
-                continue;
-            }
-            if (dnsSeen.contains(member)) {
-                LOG.warning("Cyclic membership detected (checkpoint 4)");
-                continue;
-            }
-            dnsSeen.add(member);
             final Entry memberEntry = getFromCacheOrServer(member);
             fillIndirectMembershipData(memberEntry);
             entry.addIndirectMembers(createSetExcept(memberEntry.getMembers(), entry.getMembers()));
