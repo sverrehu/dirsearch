@@ -62,16 +62,16 @@
             h2.appendChild(anchoredDn(key));
             resultsElement.appendChild(h2);
             if (value.members && value.members.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Members", value.members));
+                resultsElement.appendChild(createMemberDiv("Members (" + value.members.length + ")", value.members));
             }
             if (value.indirectMembers && value.indirectMembers.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Indirect Members", value.indirectMembers));
+                resultsElement.appendChild(createMemberDiv("Indirect Members (" + value.indirectMembers.length + ")", value.indirectMembers));
             }
             if (value.memberOf && value.memberOf.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Member of", value.memberOf));
+                resultsElement.appendChild(createMemberDiv("Member of (" + value.memberOf.length + ")", value.memberOf));
             }
             if (value.indirectMemberOf && value.indirectMemberOf.length !== 0) {
-                resultsElement.appendChild(createMemberDiv("Indirectly Member of", value.indirectMemberOf));
+                resultsElement.appendChild(createMemberDiv("Indirectly Member of (" + value.indirectMemberOf.length + ")", value.indirectMemberOf));
             }
         });
     }

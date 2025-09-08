@@ -61,31 +61,43 @@ public final class LdapQuerier {
         if (!findIndirectMemberships) {
             return;
         }
-        fillIndirectMemberOf(entry);
-        fillIndirectMembers(entry);
+        fillIndirectMemberOf(entry, new HashSet<>());
+        fillIndirectMembers(entry, new HashSet<>());
     }
 
-    private void fillIndirectMemberOf(final Entry entry) {
+    private void fillIndirectMemberOf(final Entry entry, final Set<String> dnsSeen) {
         if (entry.isIndirectMembersOfFound()) {
             return;
         }
+        dnsSeen.add(entry.getDn());
         entry.setIndirectMembersOfFound(true);
         for (final String memberOf : entry.getMemberOf()) {
+            if (dnsSeen.contains(memberOf) || entry.getIndirectMemberOf().contains(memberOf)) {
+                LOG.warning("Cyclic membership detected (checkpoint 1)");
+                continue;
+            }
+            dnsSeen.add(memberOf);
             final Entry groupEntry = getFromCacheOrServer(memberOf);
-            fillIndirectMembershipData(groupEntry);
+            fillIndirectMemberOf(groupEntry, dnsSeen);
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getMemberOf(), entry.getMemberOf()));
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getIndirectMemberOf(), entry.getMemberOf()));
         }
     }
 
-    private void fillIndirectMembers(final Entry entry) {
+    private void fillIndirectMembers(final Entry entry, final Set<String> dnsSeen) {
         if (entry.isIndirectMembersFound()) {
             return;
         }
+        dnsSeen.add(entry.getDn());
         entry.setIndirectMembersFound(true);
         for (final String member : entry.getMembers()) {
+            if (dnsSeen.contains(member) || entry.getIndirectMembers().contains(member)) {
+                LOG.warning("Cyclic membership detected (checkpoint 2)");
+                continue;
+            }
+            dnsSeen.add(member);
             final Entry memberEntry = getFromCacheOrServer(member);
-            fillIndirectMembershipData(memberEntry);
+            fillIndirectMembers(memberEntry, dnsSeen);
             entry.addIndirectMembers(createSetExcept(memberEntry.getMembers(), entry.getMembers()));
             entry.addIndirectMembers(createSetExcept(memberEntry.getIndirectMembers(), entry.getMembers()));
         }
