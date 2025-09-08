@@ -43,11 +43,16 @@ public final class LdapQuerier {
     }
 
     public Entry get(final String dn) {
+        final Entry entry = getFromCacheOrServer(dn);
+        fillIndirectMembershipData(entry);
+        return entry;
+    }
+
+    private Entry getFromCacheOrServer(final String dn) {
         Entry entry = dnCache.get(dn);
         if (entry == null) {
             entry = EntryTranslator.fromDnAndAttributes(dn, ldapHelper.get(dn));
             addToCache(dn, entry);
-            fillIndirectMembershipData(entry);
         }
         return entry;
     }
@@ -56,44 +61,43 @@ public final class LdapQuerier {
         if (!findIndirectMemberships) {
             return;
         }
-        fillIndirectMemberOf(entry);
-        // This next one leads to far too many queries. Commenting out for now (2025-09-04).
-        //fillIndirectMembers(entry);
+        fillIndirectMemberOf(entry, new HashSet<>());
+        fillIndirectMembers(entry, new HashSet<>());
     }
 
-    private void fillIndirectMemberOf(final Entry entry) {
-        final Set<String> dnsSeen = new HashSet<>();
+    private void fillIndirectMemberOf(final Entry entry, final Set<String> dnsSeen) {
+        if (entry.isIndirectMembersOfFound()) {
+            return;
+        }
         dnsSeen.add(entry.getDn());
+        entry.setIndirectMembersOfFound(true);
         for (final String memberOf : entry.getMemberOf()) {
-            if (entry.getIndirectMemberOf().contains(memberOf)) {
+            if (dnsSeen.contains(memberOf) || entry.getIndirectMemberOf().contains(memberOf)) {
                 LOG.warning("Cyclic membership detected (checkpoint 1)");
                 continue;
             }
-            if (dnsSeen.contains(memberOf)) {
-                LOG.warning("Cyclic membership detected (checkpoint 2)");
-                continue;
-            }
             dnsSeen.add(memberOf);
-            final Entry groupEntry = get(memberOf);
+            final Entry groupEntry = getFromCacheOrServer(memberOf);
+            fillIndirectMemberOf(groupEntry, dnsSeen);
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getMemberOf(), entry.getMemberOf()));
             entry.addIndirectMemberOf(createSetExcept(groupEntry.getIndirectMemberOf(), entry.getMemberOf()));
         }
     }
 
-    private void fillIndirectMembers(final Entry entry) {
-        final Set<String> dnsSeen = new HashSet<>();
+    private void fillIndirectMembers(final Entry entry, final Set<String> dnsSeen) {
+        if (entry.isIndirectMembersFound()) {
+            return;
+        }
         dnsSeen.add(entry.getDn());
+        entry.setIndirectMembersFound(true);
         for (final String member : entry.getMembers()) {
-            if (entry.getIndirectMembers().contains(member)) {
-                LOG.warning("Cyclic membership detected (checkpoint 3)");
-                continue;
-            }
-            if (dnsSeen.contains(member)) {
-                LOG.warning("Cyclic membership detected (checkpoint 4)");
+            if (dnsSeen.contains(member) || entry.getIndirectMembers().contains(member)) {
+                LOG.warning("Cyclic membership detected (checkpoint 2)");
                 continue;
             }
             dnsSeen.add(member);
-            final Entry memberEntry = get(member);
+            final Entry memberEntry = getFromCacheOrServer(member);
+            fillIndirectMembers(memberEntry, dnsSeen);
             entry.addIndirectMembers(createSetExcept(memberEntry.getMembers(), entry.getMembers()));
             entry.addIndirectMembers(createSetExcept(memberEntry.getIndirectMembers(), entry.getMembers()));
         }
