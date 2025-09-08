@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/sverrehu/dirsearch/compare/v0.5.1...v0.5.2) (2025-09-08)
+
+
+### Bug Fixes
+
+* handle NameNotFoundException ([#201](https://github.com/sverrehu/dirsearch/issues/201)) ([cb31eb9](https://github.com/sverrehu/dirsearch/commit/cb31eb98cd4ef03a5700280a960a789c3f5161e5))
+
 ## [0.5.1](https://github.com/sverrehu/dirsearch/compare/v0.5.0...v0.5.1) (2025-09-06)
 
 
