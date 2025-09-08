@@ -5,6 +5,7 @@ import no.shhsoft.ldap.UncheckedNamingException;
 import no.shhsoft.security.MultiTrustStoreX509TrustManager;
 
 import javax.naming.InvalidNameException;
+import javax.naming.NameNotFoundException;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.PartialResultException;
@@ -15,6 +16,7 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.LdapContext;
 import javax.naming.ldap.LdapName;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +112,9 @@ public final class LdapHelper {
     }
 
     private Map<String, List<String>> getAttributes(final Attributes attributes) {
+        if (attributes == null) {
+            return Collections.emptyMap();
+        }
         try {
             final Map<String, List<String>> attributeMap = new LinkedHashMap<>();
             final NamingEnumeration<? extends Attribute> ne = attributes.getAll();
@@ -177,6 +182,9 @@ public final class LdapHelper {
                 context = null;
                 try {
                     return getContext().getAttributes(rdn, SEARCH_ATTRIBUTES);
+                } catch (final NameNotFoundException notFound) {
+                    LOG.warning("Name not found: " + dn);
+                    return null;
                 } catch (final NamingException e3) {
                     throw new UncheckedNamingException(e3);
                 }
