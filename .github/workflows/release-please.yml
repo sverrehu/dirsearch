@@ -13,7 +13,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Release please
-        uses: googleapis/release-please-action@v4
+        uses: googleapis/release-please-action@v5
         with:
           release-type: maven
           bump-minor-pre-major: true
