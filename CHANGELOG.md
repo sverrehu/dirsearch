@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.5](https://github.com/sverrehu/dirsearch/compare/v0.6.4...v0.6.5) (2026-05-21)
+
+
+### Bug Fixes
+
+* upgrade some of undertow ([#299](https://github.com/sverrehu/dirsearch/issues/299)) ([69af737](https://github.com/sverrehu/dirsearch/commit/69af7370358c3d8dcd35d7def18651dbc0c7556f))
+
 ## [0.6.4](https://github.com/sverrehu/dirsearch/compare/v0.6.3...v0.6.4) (2026-04-12)
 
 
