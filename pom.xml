@@ -33,7 +33,7 @@
 
     <properties>
         <java.version>21</java.version>
-        <undertow.version>2.4.1.Final</undertow.version>
+        <undertow.version>2.4.2.Final</undertow.version>
         <undertow.servlet.version>2.3.24.Final</undertow.servlet.version>
         <junit.version>6.1.0</junit.version>
         <shhsoft4.version>0.5.0</shhsoft4.version>
