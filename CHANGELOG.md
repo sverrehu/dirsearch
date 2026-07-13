@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.8](https://github.com/sverrehu/dirsearch/compare/v0.6.7...v0.6.8) (2026-07-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency io.undertow:undertow-servlet to v2.3.26.final ([#312](https://github.com/sverrehu/dirsearch/issues/312)) ([d553573](https://github.com/sverrehu/dirsearch/commit/d553573c3641b0382cd6433f6ee82269614e3d9a))
+
 ## [0.6.7](https://github.com/sverrehu/dirsearch/compare/v0.6.6...v0.6.7) (2026-06-29)
 
 
