@@ -8,6 +8,7 @@ import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.server.handlers.resource.ResourceHandler;
 import io.undertow.util.Headers;
 import io.undertow.util.Methods;
+import no.shhsoft.dirsearch.metrics.PrometheusMetricsExchange;
 import no.shhsoft.dirsearch.model.Entry;
 import no.shhsoft.dirsearch.model.EntryTranslator;
 import no.shhsoft.json.impl.generator.JsonGeneratorImpl;
@@ -28,6 +29,7 @@ public final class DirSearch {
     private static final String API_PREFIX = "/api/v1/";
     private static final String DN_PREFIX = API_PREFIX + "dn/";
     private static final String SEARCH_PREFIX = API_PREFIX + "search/";
+    private static final String METRICS_PREFIX = "metrics";
     private static final int HTTP_PORT = 8080;
     private LdapQuerier ldapQuerier;
 
@@ -76,6 +78,7 @@ public final class DirSearch {
                 sendJson(exchange, errorMessageToJsonString(e.getMessage()));
             }
         });
+        routingHandler.get(METRICS_PREFIX, new PrometheusMetricsExchange());
         routingHandler.setFallbackHandler(resourceHandler);
 
         final Undertow server = Undertow.builder()

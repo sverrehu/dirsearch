@@ -71,8 +71,8 @@ implements PrometheusHttpExchange {
         }
 
         @Override
-        public OutputStream sendHeadersAndGetBody(final int statusCode, final int contentLength)
-        throws IOException {
+        public OutputStream sendHeadersAndGetBody(final int statusCode, final int contentLength) {
+            exchange.startBlocking();
             return exchange.getOutputStream();
         }
 
