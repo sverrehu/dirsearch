@@ -38,6 +38,7 @@
         <junit.version>6.1.2</junit.version>
         <shhsoft4.version>0.5.0</shhsoft4.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <prometheus.version>1.8.0</prometheus.version>
     </properties>
 
     <dependencies>
@@ -73,6 +74,18 @@
             <groupId>io.undertow</groupId>
             <artifactId>undertow-servlet</artifactId>
             <version>${undertow.servlet.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>prometheus-metrics-core</artifactId>
+            <version>${prometheus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>prometheus-metrics-exporter-common</artifactId>
+            <version>${prometheus.version}</version>
         </dependency>
 
         <dependency>
