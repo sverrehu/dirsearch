@@ -1,7 +1,6 @@
 package no.shhsoft.dirsearch.metrics;
 
 import io.prometheus.metrics.core.metrics.Counter;
-import io.prometheus.metrics.core.metrics.Gauge;
 
 public final class PrometheusReporter {
 
