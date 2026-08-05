@@ -9,6 +9,7 @@ import io.undertow.server.handlers.resource.ResourceHandler;
 import io.undertow.util.Headers;
 import io.undertow.util.Methods;
 import no.shhsoft.dirsearch.metrics.PrometheusMetricsExchange;
+import no.shhsoft.dirsearch.metrics.PrometheusReporter;
 import no.shhsoft.dirsearch.model.Entry;
 import no.shhsoft.dirsearch.model.EntryTranslator;
 import no.shhsoft.json.impl.generator.JsonGeneratorImpl;
@@ -32,6 +33,7 @@ public final class DirSearch {
     private static final String METRICS_PREFIX = "metrics";
     private static final int HTTP_PORT = 8080;
     private LdapQuerier ldapQuerier;
+    private PrometheusReporter metricsReporter = new PrometheusReporter();
 
     private static void notFoundHandler(final HttpServerExchange exchange) {
         exchange.setStatusCode(404);
@@ -63,9 +65,11 @@ public final class DirSearch {
             try {
                 final String json = get(dn);
                 sendJson(exchange, json);
+                metricsReporter.incDnLookupsTotal();
             } catch (final Exception e) {
                 LOG.log(Level.WARNING, "Unexpected error", e);
                 sendJson(exchange, errorMessageToJsonString(e.getMessage()));
+                metricsReporter.incErrorsTotal();
             }
         });
         routingHandler.get(SEARCH_PREFIX + "*", exchange -> {
@@ -73,9 +77,11 @@ public final class DirSearch {
             try {
                 final String json = search(search);
                 sendJson(exchange, json);
+                metricsReporter.incSearchesTotal();
             } catch (final Exception e) {
                 LOG.log(Level.WARNING, "Unexpected error", e);
                 sendJson(exchange, errorMessageToJsonString(e.getMessage()));
+                metricsReporter.incErrorsTotal();
             }
         });
         routingHandler.get(METRICS_PREFIX, new PrometheusMetricsExchange());
