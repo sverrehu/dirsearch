@@ -1,5 +1,6 @@
 package no.shhsoft.dirsearch;
 
+import no.shhsoft.dirsearch.metrics.PrometheusReporter;
 import no.shhsoft.ldap.LdapUtils;
 import no.shhsoft.ldap.UncheckedNamingException;
 import no.shhsoft.security.MultiTrustStoreX509TrustManager;
@@ -47,6 +48,7 @@ public final class LdapHelper {
     private final String userDn;
     private final char[] password;
     private final Object contextLock = new Object();
+    private final PrometheusReporter metricsReporter;
     private LdapContext context;
 
     private interface Searcher {
@@ -56,14 +58,15 @@ public final class LdapHelper {
 
     }
 
-    private LdapHelper(final boolean isTls, final String host, final int port, final String baseDn, final String userDn, final char[] password) {
+    private LdapHelper(final boolean isTls, final String host, final int port, final String baseDn, final String userDn, final char[] password, final PrometheusReporter metricsReporter) {
         this.ldapUrl = (isTls ? "ldaps" : "ldap") + "://" + host + ":" + port + "/" + baseDn;
         this.baseDn = baseDn;
         this.userDn = userDn;
         this.password = password;
+        this.metricsReporter = metricsReporter;
     }
 
-    public static LdapHelper forConfig(final Config config) {
+    public static LdapHelper forConfig(final Config config, final PrometheusReporter metricsReporter) {
         final boolean isTls = config.isLdapTls();
         final String host = config.getLdapHost();
         final int port = config.getLdapPort();
@@ -77,7 +80,7 @@ public final class LdapHelper {
             .withCaCertificateFile(caCertsFile)
             .installAsDefault();
         }
-        return new LdapHelper(isTls, host, port, baseDn, userDn, password.toCharArray());
+        return new LdapHelper(isTls, host, port, baseDn, userDn, password.toCharArray(), metricsReporter);
     }
 
     public Map<String, Map<String, List<String>>> search(final String query) {
@@ -147,6 +150,7 @@ public final class LdapHelper {
         synchronized (contextLock) {
             final LdapContext ldapContext = getContext();
             try {
+                metricsReporter.incLdapServerRequestsTotal();
                 return searcher.search(query);
             } catch (final NamingException | UncheckedNamingException e) {
                 LOG.info("Got NamingException. Retrying. " + e.getMessage());
@@ -157,6 +161,7 @@ public final class LdapHelper {
                 }
                 context = null;
                 try {
+                    metricsReporter.incLdapServerRequestsTotal();
                     return searcher.search(query);
                 } catch (final NamingException e3) {
                     throw new UncheckedNamingException(e3);
@@ -171,6 +176,7 @@ public final class LdapHelper {
             final String rdn = makeRelative(dn, baseDn);
             LOG.info("Looking up \"" + rdn + "\"");
             try {
+                metricsReporter.incLdapServerRequestsTotal();
                 return ldapContext.getAttributes(rdn, SEARCH_ATTRIBUTES);
             } catch (final NamingException | UncheckedNamingException e) {
                 LOG.info("Got NamingException. Retrying. " + e.getMessage());
@@ -181,6 +187,7 @@ public final class LdapHelper {
                 }
                 context = null;
                 try {
+                    metricsReporter.incLdapServerRequestsTotal();
                     return getContext().getAttributes(rdn, SEARCH_ATTRIBUTES);
                 } catch (final NameNotFoundException notFound) {
                     LOG.warning("Name not found: " + dn);

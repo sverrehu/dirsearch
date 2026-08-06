@@ -1,6 +1,7 @@
 package no.shhsoft.dirsearch.ldap;
 
 import no.shhsoft.dirsearch.LdapQuerier;
+import no.shhsoft.dirsearch.metrics.PrometheusReporter;
 import no.shhsoft.dirsearch.model.Entry;
 import no.shhsoft.dirsearch.model.EntryTranslator;
 import no.shhsoft.json.impl.generator.HumanReadableJsonGeneratorImpl;
@@ -24,7 +25,7 @@ public final class LdapQuerierIntegrationTest {
     public static void beforeAll() {
         ldap = new LdapServer();
         ldap.start();
-        ldapQuerier = new LdapQuerier(ldap.getConfig());
+        ldapQuerier = new LdapQuerier(ldap.getConfig(), new PrometheusReporter());
     }
 
     @AfterAll

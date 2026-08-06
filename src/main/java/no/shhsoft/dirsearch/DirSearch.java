@@ -48,7 +48,7 @@ public final class DirSearch {
     }
 
     private void initQuerier(final Config config) {
-        ldapQuerier = new LdapQuerier(config);
+        ldapQuerier = new LdapQuerier(config, metricsReporter);
     }
 
     private void initWebServer(final Config config) {

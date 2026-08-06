@@ -1,5 +1,6 @@
 package no.shhsoft.dirsearch;
 
+import no.shhsoft.dirsearch.metrics.PrometheusReporter;
 import no.shhsoft.dirsearch.model.Entry;
 import no.shhsoft.dirsearch.model.EntryTranslator;
 import no.shhsoft.utils.cache.TimeoutCache;
@@ -19,14 +20,16 @@ public final class LdapQuerier {
     private final TimeoutCache<String, Entry> dnCache;
     private final long dnCacheTtlMs;
     private final boolean findIndirectMemberships;
+    private final PrometheusReporter metricsReporter;
 
-    public LdapQuerier(final Config config) {
-        ldapHelper = LdapHelper.forConfig(config);
+    public LdapQuerier(final Config config, final PrometheusReporter metricsReporter) {
+        ldapHelper = LdapHelper.forConfig(config, metricsReporter);
         dnCache = new TimeoutCache<>();
         final int dnCacheTtlMin = config.getDnCacheTtlMin();
         LOG.info("Caching DN lookups for " + dnCacheTtlMin + " minutes");
         dnCacheTtlMs = dnCacheTtlMin * 60L * 1000L;
         findIndirectMemberships = config.isFindIndirectMemberships();
+        this.metricsReporter = metricsReporter;
     }
 
     public Map<String, Entry> search(final String query) {
@@ -53,6 +56,8 @@ public final class LdapQuerier {
         if (entry == null) {
             entry = EntryTranslator.fromDnAndAttributes(dn, ldapHelper.get(dn));
             addToCache(dn, entry);
+        } else {
+            metricsReporter.incLdapCacheHitsTotal();
         }
         return entry;
     }
