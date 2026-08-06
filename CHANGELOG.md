@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/sverrehu/dirsearch/compare/v0.7.0...v0.7.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* more metrics ([#320](https://github.com/sverrehu/dirsearch/issues/320)) ([be90025](https://github.com/sverrehu/dirsearch/commit/be90025824a5f5bc7f840c0080bb12a22cc5ba67))
+
 ## [0.7.0](https://github.com/sverrehu/dirsearch/compare/v0.6.8...v0.7.0) (2026-08-05)
 
 
