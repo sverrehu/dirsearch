@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/sverrehu/dirsearch/compare/v0.7.3...v0.8.0) (2026-09-21)
+
+
+### Features
+
+* upgrade Java runtime from 21 to 25 ([#334](https://github.com/sverrehu/dirsearch/issues/334)) ([cdec574](https://github.com/sverrehu/dirsearch/commit/cdec57475d99dbdc54f59ae3cdabad4daf26ffd1))
+
 ## [0.7.3](https://github.com/sverrehu/dirsearch/compare/v0.7.2...v0.7.3) (2026-09-21)
 
 
