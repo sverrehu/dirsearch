@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.3](https://github.com/sverrehu/dirsearch/compare/v0.7.2...v0.7.3) (2026-09-21)
+
+
+### Bug Fixes
+
+* **deps:** update prometheus.version to v1.9.0 ([#330](https://github.com/sverrehu/dirsearch/issues/330)) ([cfc65bf](https://github.com/sverrehu/dirsearch/commit/cfc65bf5bf1d7480d56db26db3008994ca9330ea))
+
 ## [0.7.2](https://github.com/sverrehu/dirsearch/compare/v0.7.1...v0.7.2) (2026-08-27)
 
 
