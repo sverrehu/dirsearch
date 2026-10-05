@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/sverrehu/dirsearch/compare/v0.8.0...v0.8.1) (2026-10-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency io.undertow:undertow-core to v2.4.4.final ([#337](https://github.com/sverrehu/dirsearch/issues/337)) ([3cbff61](https://github.com/sverrehu/dirsearch/commit/3cbff61a3a11313d0ebcee0488d9a355341be5dc))
+
 ## [0.8.0](https://github.com/sverrehu/dirsearch/compare/v0.7.3...v0.8.0) (2026-09-21)
 
 
