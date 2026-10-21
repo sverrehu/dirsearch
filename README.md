@@ -1,6 +1,6 @@
 # dirsearch
 
-Web interface for drilling through group memberships in an LDAP server, such as e.g. Active Directory (AD).
+Web interface for drilling through group memberships in an LDAP server, such as Active Directory (AD).
 
 The server serves plain HTTP at port 8080, so you will have to run it behind a proxy to get HTTPS and a reasonable port.
 
@@ -13,7 +13,7 @@ In the search field you may enter any of the following to list group memberships
 * Common name
 
 Whatever you enter must match exactly what is in the directory.
-Everything found is represented as a link that you may drill into.
+Everything found is represented as links that you may drill into.
 
 For individuals, you will see what groups they are direct members of and, if enabled, what groups they are indirect members of.
 
