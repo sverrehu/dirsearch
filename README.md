@@ -28,7 +28,7 @@ The following variables are supported:
 | -------- | -------- | ------- | ----------- |
 | `CA_CERTS_FILE` | No | | Path to container-local file containing additional CA certificates in PEM format. |
 | `DN_CACHE_TTL_MIN` | No | `5` | How long, in minutes, to cache lookups. |
-| `FIND_INDIRECT_MEMBERSHIPS` | No | `true` | Recursively find group memberships, i.e. "groups within groups". |
+| `FIND_INDIRECT_MEMBERSHIPS` | No | `true` | Recursively find group memberships, i.e., "groups within groups". |
 | `LDAP_BASE_DN` | Yes | | The base DN in which to search. |
 | `LDAP_HOST` | Yes | | Hostname of LDAP server. |
 | `LDAP_PASSWORD` | Yes | | Password of user with which to bind to the LDAP server. |
