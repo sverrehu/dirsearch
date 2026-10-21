@@ -15,9 +15,9 @@ In the search field you may enter any of the following to list group memberships
 Whatever you enter must match exactly what is in the directory.
 Everything found is represented as a link that you may drill into.
 
-For individuals, you will see what groups they are a direct member of, and if enabled, what groups they are indirect members of.
+For individuals, you will see what groups they are direct members of and, if enabled, what groups they are indirect members of.
 
-For groups, you will see the same as for individuals, in addition to who are direct, and if enabled, indirect members.
+For groups, you will see the same as for individuals, in addition to who are direct and, if enabled, indirect members.
 
 ## Configuration
 
