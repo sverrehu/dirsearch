@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.3](https://github.com/sverrehu/dirsearch/compare/v0.8.2...v0.8.3) (2026-10-21)
+
+
+### Documentation
+
+* add instructions in README ([#343](https://github.com/sverrehu/dirsearch/issues/343)) ([c473d4c](https://github.com/sverrehu/dirsearch/commit/c473d4c6d8e734c55056fe45f6087f02fc789096))
+
 ## [0.8.2](https://github.com/sverrehu/dirsearch/compare/v0.8.1...v0.8.2) (2026-10-16)
 
 
