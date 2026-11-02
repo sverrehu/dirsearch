@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.3](https://github.com/sverrehu/dirsearch/compare/v0.8.2...v0.8.3) (2026-11-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency io.undertow:undertow-servlet to v2.3.27.final ([#345](https://github.com/sverrehu/dirsearch/issues/345)) ([c724b56](https://github.com/sverrehu/dirsearch/commit/c724b565c62a368a86ad2294fa5cfe4c52a01c03))
+
+
+### Documentation
+
+* add instructions in README ([#343](https://github.com/sverrehu/dirsearch/issues/343)) ([c473d4c](https://github.com/sverrehu/dirsearch/commit/c473d4c6d8e734c55056fe45f6087f02fc789096))
+
 ## [0.8.2](https://github.com/sverrehu/dirsearch/compare/v0.8.1...v0.8.2) (2026-10-16)
 
 
